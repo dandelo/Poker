@@ -57,7 +57,6 @@ public class Human extends Player {
 			} catch (NumberFormatException e) {
 				System.out.println("Bet not recognised, please enter an int value");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} finally {
 				betAttempts++;

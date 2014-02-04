@@ -13,6 +13,11 @@ class Deck {
 	 public Deck() {
 		
 		deck = new LinkedList<Card>();
+		
+		buildDeck();
+	}
+
+	private void buildDeck() {
 		final int NO_OF_SUITS = 4;
 		
 		for(int i=0; i<NO_OF_SUITS; i++) {

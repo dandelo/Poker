@@ -1,6 +1,6 @@
 package cards;
 
-abstract class Player {
+public abstract class Player {
 	
 	private String name;
 	private int chips;
