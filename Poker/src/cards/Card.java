@@ -1,12 +1,5 @@
-/**
- * 
- */
 package cards;
 
-/**
- * @author dturner
- *
- */
 class Card {
 	
 	public enum Suit {HEARTS, DIAMONDS, SPADES, CLUBS}

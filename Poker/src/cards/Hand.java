@@ -13,8 +13,8 @@ class Hand implements Comparable<Hand> {
 	private Card[] cards;
 	private String madeHand;
 	
-	private int[] values = new int[14];		// 13 cards, but don't use 0
-	private int h=0, d=0, s=0, c=0; 		//number of matching suits
+	private int[] values = new int[14];		// 13 card values, but don't use 0
+	private int hearts=0, diamonds=0, spades=0, clubs=0;
 	private Suit flushSuit;					//if there's a flush, it's this suit
 	private List<Integer> flushValues = new ArrayList<Integer>(); //if flush, these face values
 	private int[] madeHandValue = new int[6]; 	//0=rank, 1-4=ordered cards. 
@@ -29,13 +29,13 @@ class Hand implements Comparable<Hand> {
 			values[card.getValue()]++;
 			
 			switch(card.getSuit()) {
-				case HEARTS: 	h++;
+				case HEARTS: 	hearts++;
 								break;
-				case DIAMONDS: 	d++;
+				case DIAMONDS: 	diamonds++;
 								break;
-				case SPADES: 	s++;
+				case SPADES: 	spades++;
 								break;
-				case CLUBS: 	c++;
+				case CLUBS: 	clubs++;
 								break;
 			}
 		}
@@ -90,19 +90,19 @@ class Hand implements Comparable<Hand> {
 	 * Checks whether there is a flush and sets made flush hand if true
 	 */
 	private boolean isFlush() {
-		if(h>=5) {
+		if(hearts>=5) {
 			setFlushHand(Suit.HEARTS);
 			return true;
 		}
-		else if (d>=5) {
+		else if (diamonds>=5) {
 			setFlushHand(Suit.DIAMONDS);
 			return true;
 		}
-		else if (s>=5) {
+		else if (spades>=5) {
 			setFlushHand(Suit.SPADES);
 			return true;
 		}
-		else if (c>=5) {
+		else if (clubs>=5) {
 			setFlushHand(Suit.CLUBS);
 			return true;
 		}

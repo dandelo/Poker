@@ -1,25 +1,21 @@
-/**
- * 
- */
 package cards;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import cards.Card.Suit;
 
-/**
- * @author dturner
- *
- */
+
 class Deck {
 	
-	private LinkedList<Card> deck;
+	private List<Card> deck;
 	
-	protected Deck() {
+	 public Deck() {
 		
 		deck = new LinkedList<Card>();
+		final int NO_OF_SUITS = 4;
 		
-		for(int i=0; i<4; i++) {
+		for(int i=0; i<NO_OF_SUITS; i++) {
 			Suit s = null;
 			switch(i) {
 				case(0): 	s=Suit.HEARTS;
@@ -39,20 +35,13 @@ class Deck {
 		}
 	}
 	
-	public void shuffle() {
-		for(int i=0; i<52; i++) {
-			int card = (int) (Math.random() * (52-i));
-			deck.addLast(deck.remove(card));
-		}
-	}
-	
 	public void printDeck() {
 		for(Card c: deck) {
-			System.out.println(c.toString());
+			System.out.println(c);
 		}
 	}
 	
-	protected LinkedList<Card> getDeck() {
+	public List<Card> getDeck() {
 		return deck;
 	}
 

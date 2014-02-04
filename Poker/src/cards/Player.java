@@ -1,11 +1,13 @@
 package cards;
 
-class Player {
+abstract class Player {
 	
 	private String name;
 	private int chips;
+	private int betThisHand;
 	private Card[] holeCards;
 	private Hand madeHand;
+	private boolean hasMadeBet;
 	
 	
 	public Player(String name, int chips) {
@@ -14,40 +16,65 @@ class Player {
 		holeCards = new Card[2];
 	}
 	
-	public String getName() {
+	final public String getName() {
 		return name;
 	}
-	public int getChips() {
+	final public int getChips() {
 		return chips;
 	}
-	public void addChips(int chips) {
+	final protected void setChips(int chips) {
+		this.chips = chips;
+	}
+	final public void addChips(int chips) {
 		this.chips += chips;
 	}
-	public Card[] getCards() {
+	final public void setBetThisHand(int betThisHand) {
+		this.betThisHand = betThisHand;
+	}
+	final public int getBetThisHand() {
+		return betThisHand;
+	}
+	final public Card[] getCards() {
 		return holeCards;
 	}
-	public void setCards(Card card, int index) {
+	final public void setCards(Card card, int index) {
 		holeCards[index]=card;
 	}
-	public void setMadeHand(Hand hc) {
+	final public void setMadeHand(Hand hc) {
 		madeHand = hc;
 	}
-	public Hand getMadeHand() {
+	final public Hand getMadeHand() {
 		return madeHand;
+	}
+	final public boolean hasMadeBet() {
+		return hasMadeBet;
+	}
+	final public void setMadeBet(boolean hasMadeBet) {
+		this.hasMadeBet = hasMadeBet;
+	}
+	final public void resetPlayerBets() {
+		betThisHand = 0;
+		hasMadeBet = false;
 	}
 	
 	/*
-	 * Make a bet.
+	 * Pay Blinds
 	 * @return 0 if affordable or short-fall if not
 	 */
-	public int bet(int bet) {
-		if(bet > chips) {
+	final public int payBlind(int amount) {
+		if(amount > chips) {
 			chips = 0;
-			return bet-chips;
+			return amount-chips;
 		}
 		
-		chips -= bet;
+		chips -= amount;
 		return 0;
 	}
+	
+	 public String toString() {
+		return name;
+	}
+	
+	abstract int decideBet(int currentBet, int bigBlind);
 
 }
