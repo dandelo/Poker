@@ -19,20 +19,20 @@ public class Hand implements Comparable<Hand> {
 	private List<Integer> flushValues = new ArrayList<Integer>(); //if flush, these face values
 	private int[] madeHandValue = new int[6]; 	//0=rank, 1-5=ordered cards
 	
-	private static final int highCard = 1;
-	private static final int pair = 2;
-	private static final int twoPair = 3;
-	private static final int trips = 4;
-	private static final int straight = 5;
-	private static final int flush = 6;
-	private static final int fullHouse = 7;
-	private static final int quads = 8;
-	private static final int straightFlush = 9;
+	private static final int HIGH_CARD = 1;
+	private static final int ONE_PAIR = 2;
+	private static final int TWO_PAIR = 3;
+	private static final int TRIPS = 4;
+	private static final int STRAIGHT = 5;
+	private static final int FLUSH = 6;
+	private static final int FULL_HOUSE = 7;
+	private static final int QUADS = 8;
+	private static final int STRAIGHT_FLUSH = 9;
 	
-	private static final int jack = 11;
-	private static final int queen = 12;
-	private static final int king = 13;
-	private static final int ace = 14;
+	private static final int JACK = 11;
+	private static final int QUEEN = 12;
+	private static final int KING = 13;
+	private static final int ACE = 14;
 
 	
 	public Hand(Card[] cards) {
@@ -76,9 +76,9 @@ public class Hand implements Comparable<Hand> {
 
 		if (values[1] > matchingCardsCount) {
 			matchingCardsCount = values[1];
-        	largeGroupValue = ace;
+        	largeGroupValue = ACE;
 		}
-		for (int i=king; i>=2; i--) {
+		for (int i=KING; i>=2; i--) {
 		     if (values[i] > matchingCardsCount) {
 		         if (matchingCardsCount != 1) {					//if not the first match found
 		             matchingCardsCount2 = matchingCardsCount;
@@ -95,11 +95,11 @@ public class Hand implements Comparable<Hand> {
 		}
 		
 		int index = 0;										
-		if (ace != largeGroupValue && ace != smallGroupValue && values[1] > 0) { //ace kicker
-			highCards[index] = ace;
+		if (ACE != largeGroupValue && ACE != smallGroupValue && values[1] > 0) { //ace kicker
+			highCards[index] = ACE;
 			index++;
 		}
-		for (int x=king; x>=2; x--) { 
+		for (int x=KING; x>=2; x--) { 
 			if (x != largeGroupValue && x != smallGroupValue && values[x] > 0) {
 				highCards[index] = x;
 				index++;
@@ -108,11 +108,11 @@ public class Hand implements Comparable<Hand> {
 		}
 		
 		if(largeGroupValue == 1 ) {
-			largeGroupValue = ace;
+			largeGroupValue = ACE;
 		}
 		if(smallGroupValue == 1 ) {
 			smallGroupValue = largeGroupValue;
-			largeGroupValue = ace;
+			largeGroupValue = ACE;
 		}
 		
 		setMatchingValuesMadeHand(matchingCardsCount, matchingCardsCount2, largeGroupValue, smallGroupValue, highCards);
@@ -123,32 +123,32 @@ public class Hand implements Comparable<Hand> {
 	 */
 	private void setMatchingValuesMadeHand(int matchingCardsCount, int matchingCardsCount2, int largeGroupValue, int smallGroupValue, int[] highCards) {
 		if(matchingCardsCount == 4 || matchingCardsCount2 == 4) {			//quads
-			int[] hand = {quads,largeGroupValue,largeGroupValue,largeGroupValue,largeGroupValue,Math.max(highCards[0],smallGroupValue)};
+			int[] hand = {QUADS,largeGroupValue,largeGroupValue,largeGroupValue,largeGroupValue,Math.max(highCards[0],smallGroupValue)};
 			madeHandValue = hand;
 		}
 		else if(matchingCardsCount == 3 || matchingCardsCount2 == 3) {
 			if((matchingCardsCount == 3 && matchingCardsCount2 >= 2) || (matchingCardsCount >= 2 && matchingCardsCount2 == 3)) {		//full house
-				int[] hand = {fullHouse,largeGroupValue,largeGroupValue,largeGroupValue,smallGroupValue,smallGroupValue};
+				int[] hand = {FULL_HOUSE,largeGroupValue,largeGroupValue,largeGroupValue,smallGroupValue,smallGroupValue};
 				madeHandValue = hand;
 			}
 			else {										//trips
-				int[] hand = {trips,largeGroupValue,largeGroupValue,largeGroupValue,highCards[0],highCards[1]};
+				int[] hand = {TRIPS,largeGroupValue,largeGroupValue,largeGroupValue,highCards[0],highCards[1]};
 				madeHandValue = hand;
 			}
 		}
 		else if(matchingCardsCount == 2 || matchingCardsCount2 == 2) {
 			if(matchingCardsCount == 2 && matchingCardsCount2 == 2) {		//two pair
-				int[] hand = {twoPair,largeGroupValue,largeGroupValue,smallGroupValue,smallGroupValue,highCards[0]};
+				int[] hand = {TWO_PAIR,largeGroupValue,largeGroupValue,smallGroupValue,smallGroupValue,highCards[0]};
 				madeHandValue = hand;
 			}
 			else {										//one pair
-				int[] hand = {pair,largeGroupValue,largeGroupValue,highCards[0],highCards[1],highCards[2]};
+				int[] hand = {ONE_PAIR,largeGroupValue,largeGroupValue,highCards[0],highCards[1],highCards[2]};
 				madeHandValue = hand;
 			}
 
 		}
 		else {											//high card
-			int[] hand = {highCard,highCards[0],highCards[1],highCards[2],highCards[3],highCards[4]};
+			int[] hand = {HIGH_CARD,highCards[0],highCards[1],highCards[2],highCards[3],highCards[4]};
 			madeHandValue = hand;			
 		}
 		
@@ -190,13 +190,13 @@ public class Hand implements Comparable<Hand> {
 			}
 		}
 		if(flushValues.contains(1)) { // add high ace
-			flushValues.add(ace);
+			flushValues.add(ACE);
 		}
 		Collections.sort(flushValues, Collections.reverseOrder());
 		
-		int[] hand = {flush,flushValues.get(0),flushValues.get(1),flushValues.get(2),flushValues.get(3),flushValues.get(4)};
+		int[] hand = {FLUSH,flushValues.get(0),flushValues.get(1),flushValues.get(2),flushValues.get(3),flushValues.get(4)};
 		
-		if(madeHandValue[0] < flush) {
+		if(madeHandValue[0] < FLUSH) {
 			madeHandValue = hand;
 		}
 	}
@@ -205,17 +205,18 @@ public class Hand implements Comparable<Hand> {
 	 * Checks whether there is a straight and sets made hand if true
 	 */
 	private boolean isStraight() {
-		if (isAceHighFlush()) {
-			if(madeHandValue[0] < straight) {
-				int[] hand = {straight,ace,king,queen,jack,10};
+		if (isAceHighStraight()) {
+			if(madeHandValue[0] < STRAIGHT) {
+				int[] hand = {STRAIGHT,ACE,KING,QUEEN,JACK,10};
 				madeHandValue = hand;
 			}
 	        return true;
 		}
+		
 		for (int x=9; x>=1; x--) { 						//can't have straight with lowest value of more than 10
 		    if (values[x]>0 && values[x+1]>0 && values[x+2]>0 && values[x+3]>0 && values[x+4]>0) {
-		    	if(madeHandValue[0] < straight) {
-					int[] hand = {straight,x+4,x+3,x+2,x+1,x};
+		    	if(madeHandValue[0] < STRAIGHT) {
+					int[] hand = {STRAIGHT,x+4,x+3,x+2,x+1,x};
 					madeHandValue = hand;
 				}
 		        return true;
@@ -224,8 +225,8 @@ public class Hand implements Comparable<Hand> {
 		return false;
 	}
 
-	private boolean isAceHighFlush() {
-		return values[10]>0 && values[jack]>0 && values[queen]>0 && values[king]>0 && values[1]>0;
+	private boolean isAceHighStraight() {
+		return values[10]>0 && values[JACK]>0 && values[QUEEN]>0 && values[KING]>0 && values[1]>0;
 	}
 	
 	/*
@@ -238,7 +239,7 @@ public class Hand implements Comparable<Hand> {
 		    	(flushValues.get(x)-3 == flushValues.get(x+3)) && 
 		    	(flushValues.get(x)-4 == flushValues.get(x+4))) {
 		    	
-		    	int[] hand = {straightFlush,flushValues.get(x),flushValues.get(x+1),flushValues.get(x+2),flushValues.get(x+3),flushValues.get(x+4)};
+		    	int[] hand = {STRAIGHT_FLUSH,flushValues.get(x),flushValues.get(x+1),flushValues.get(x+2),flushValues.get(x+3),flushValues.get(x+4)};
 		    	madeHandValue = hand;
 		    	break;
 		    }
@@ -253,11 +254,11 @@ public class Hand implements Comparable<Hand> {
 		Card[] madeHandCards = new Card[5];
 		List<Card> cards = new ArrayList<Card>(Arrays.asList(this.cards));
 		
-		if(madeHandValue[0] == flush) {		// if flush then looking for particular suits of values
+		if(madeHandValue[0] == FLUSH) {		// if flush then looking for particular suits of values
 			for(int i=1; i<madeHandValue.length; i++) {
 				for(Card c: cards) {
 					if(c.getSuit() == flushSuit && (c.getValue() == madeHandValue[i]) || 
-					  (c.getValue() == 1 && madeHandValue[i] == ace)) {
+					  (c.getValue() == 1 && madeHandValue[i] == ACE)) {
 						madeHandCards[i-1] = c;
 						cards.remove(c);
 						break;
@@ -268,7 +269,7 @@ public class Hand implements Comparable<Hand> {
 		else {
 			for(int i=1; i<madeHandValue.length; i++) {
 				for(Card c: cards) {
-					if((c.getValue() == madeHandValue[i]) || (c.getValue() == 1 && madeHandValue[i] == ace)) {
+					if((c.getValue() == madeHandValue[i]) || (c.getValue() == 1 && madeHandValue[i] == ACE)) {
 						madeHandCards[i-1] = c;
 						cards.remove(c);
 						break;
@@ -326,7 +327,7 @@ public class Hand implements Comparable<Hand> {
 	}
 	
 	/*
-	 * @returns madeHandValue: Array containing face value of a hand (used for testing)
+	 * @returns madeHandValue: Array containing face value of a hand
 	 */
 	public int[] getMadeHandValue() {
 		return madeHandValue;
